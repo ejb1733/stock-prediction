@@ -15,6 +15,12 @@ AAPL_TICKER = 'AAPL'
 TSLA_TICKER = 'TSLA'
 
 company = AAPL_TICKER
-start = date.datetime(2002, 7, 7)
+start = date.datetime(2020, 7, 7)
 today = date.datetime.today()
 data = web.DataReader(company, 'yahoo', start, today)
+data_after_close = data['Close']
+
+scaler = MinMaxScaler(feature_range=(0,1))
+scaled_data = scaler.fit_transform(data_after_close.values.reshape(-1,1))
+
+print(scaled_data)
